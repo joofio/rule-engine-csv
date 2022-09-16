@@ -1,4 +1,4 @@
-,0,1,2,3,4,5,6
+,Column,evaluator,comparasion,result_ok,result_ok_type,result_nok,result_nok_type
 0,Age,gt,63.0,ok,final,1,not final
 1,sex,neq,1.0,nok,final,2,not final
 2,restecg,eq,0.0,nok,final,3,not final
