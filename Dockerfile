@@ -7,8 +7,8 @@ ENV GIT_COMMIT=$GIT_COMMIT
 
 
 RUN mkdir /app
-RUN mkdir /app/flaskapp
-COPY flaskapp /app/flaskapp
+RUN mkdir /app/engine_api
+COPY engine_api /app/engine_api
 
 COPY requirements.txt /app
 COPY run.py /app
