@@ -1,0 +1,24 @@
+;Column;evaluator;comparasion;result_ok;result_ok_type;result_nok;result_nok_type
+0;time_between_symptoms;lt;2;3;not final;1;not final
+1;time_between_symptoms;ge;2;4;not final;“ERROR”;final
+2;Reaction;eq;“No reaction”;“Low risk of penicillin Allergy”;Final;3;Not final
+3;Reaction;eq;“Not serious”;3;not final;4;not final
+4;Reaction;eq;“Serious”;"“High risk of
+penicillin
+allergy”";final;5;not final
+5;Skin envolvement;eq;“Y”;7;Not final;6;Not final
+6;Skin envolvement;eq;“N”;10;Not final;ERROR;final
+7;pruritus;eq;“Y”;9;Not final;8;Not final
+8;pruritus;eq;“N”;“Low risk of penicillin Allergy”;final;ERROR;final
+9;Duration of symptons;Gt;24;"“High risk of
+penicillin
+allergy”";final;“Low risk of penicillin Allergy”;final
+10;"Attack of asthma
+and/or loss of
+consciousness";Eq;“Y”;"“High risk of
+penicillin
+allergy”";final;11;Not final
+11;"Others
+manifestations
+(diarrhea,
+asthenia...)";Eq;“Y”;“Low risk of penicillin Allergy”;Not final;ERROR;final

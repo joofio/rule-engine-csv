@@ -1,0 +1,11 @@
+,Column,evaluator,comparasion,result_ok,result_ok_type,result_nok,result_nok_type
+0,reaction,eq,No reaction,Low risk of penicillin Allergy,Final,1,not final
+1,reaction,eq,Not serious,3,not final,2,not final
+2,reaction,eq,Serious,High risk of penicillin allergy,final,ERROR,final
+3,Skin envolvement,eq,Y,5,not final,4,not final
+4,Skin envolvement,eq,N,8,not final,ERROR,final
+5,pruritus,eq,Y,7,not final,6,not final
+6,pruritus,eq,N,Low risk of penicillin Allergy,final,ERROR,final
+7,Duration of symptons,gt,24,Low risk of penicillin allergy,final,High risk of penicillin Allergy,final
+8,"Attack of asthma and/or loss of consciousness",eq,Y,High risk of penicillin allergy,final,9,not final
+9,"Others manifestations (diarrhea\, asthenia...)",eq,Y,Low risk of penicillin Allergy,final,ERROR,final

@@ -1,0 +1,52 @@
+  description: "endpoint for receiving conditions and returning a dgs recommendation"
+  consumes:
+    - "application/json"
+  produces:
+    - "string"
+  parameters:
+    - in: "body"
+      name: "body"
+      description: "Conditions"
+      required: true
+      schema:
+        $ref: "#/definitions/dgsalgorithm"
+  responses:
+    422:
+      description: "Wrong format for parameters"
+    400:
+      description: "Missing mandatory parameters"
+    200:
+      description: "Sucessful operation"
+      schema:
+        type: "string"
+        example: "1"
+
+  definitions:
+    dgsalgorithm:
+      type: "object"
+      required:
+        - "sympt_cough"
+        - "sympt_fever"
+        - "sympt_breath"
+        - "geo_contConfirmed"
+      properties:
+        sympt_cough:
+          type: "string"
+          enum:
+            - "true"
+            - "false"
+        sympt_fever:
+          type: "string"
+          enum:
+            - "true"
+            - "false"
+        sympt_breath:
+          type: "string"
+          enum:
+            - "true"
+            - "false"
+        geo_contConfirmed:
+          type: "string"
+          enum:
+            - "true"
+            - "false"

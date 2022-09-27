@@ -1,35 +1,35 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[15]:
-
-
 import pandas as pd
 
 
 # read_rules
 def read_rules_from_csv(path):
-    rules = pd.read_csv(path, index_col=0)
+    rules = pd.read_csv(path, index_col=0, quotechar='"')
+    rules["Column"].replace(" ", "_", inplace=True, regex=True)
+    print(rules)
     return rules.T.to_dict(orient="list")
 
 
 def meta_wrap(a, b, method):
-    # print(a,b,method)
+    print(a, b, method)
     if method == "gt":
-        return a > b
+        return float(a) > float(b)
     if method == "neq":
         return a != b
     if method == "eq":
         return a == b
     if method == "ge":
-        return a >= b
+        return float(a) >= float(b)
     if method == "le":
-        return a <= b
+        return float(a) <= float(b)
     if method == "lt":
-        return a > b
+        return float(a) < float(b)
 
 
 def apply_rules(row, rules, nr=0, decision_path=[]):
+    print(nr)
     rule = rules[nr]  # node
     decision_path.append(nr)
     col = rule[0]
@@ -41,12 +41,14 @@ def apply_rules(row, rules, nr=0, decision_path=[]):
     outcome_n_type = rule[6]
     # print(data[col][0])
     if meta_wrap(row[col], value, signal):
-        # print(outcome[0])
+        print(outcome_y)
         if outcome_y_type == "final":
             # print("is string")
             return outcome_y
         else:
-            return apply_rules(row, rules[int(outcome_y)], decision_path)
+            return apply_rules(
+                row, rules, nr=int(outcome_y), decision_path=decision_path
+            )
     else:
         # print(outcome[1])
         if outcome_n_type == "final":

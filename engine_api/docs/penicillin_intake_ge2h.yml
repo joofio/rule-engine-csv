@@ -1,0 +1,49 @@
+  description: "endpoint for receiving conditions and returning a dgs recommendation"
+  consumes:
+    - "application/json"
+  produces:
+    - "string"
+  parameters:
+    - in: "body"
+      name: "body"
+      description: "Conditions"
+      required: true
+      schema:
+        $ref: "#/definitions/dgsalgorithm"
+  responses:
+    422:
+      description: "Wrong format for parameters"
+    400:
+      description: "Missing mandatory parameters"
+    200:
+      description: "Sucessful operation"
+      schema:
+        type: "string"
+        example: "1"
+
+  definitions:
+    dgsalgorithm:
+      type: "object"
+      required:
+        - "reaction"
+        - "skin envolvement"
+        - "duration of symptons"
+      properties:
+        reaction:
+          type: "string"
+          enum:
+            - "No reaction"
+            - "Serious"
+            - "Acute hepatitis, hypersensitivity pneumonitis, agranulocytosis or vasculitis"
+            - "Not serious"
+        skin envolvement:
+          type: "string"
+          enum:
+            - "Y"
+            - "N"
+        duration of symptons:
+          type: "string"
+          enum:
+            - "Mucosal and/or bullous lesions"
+            - "false"
+

@@ -4,8 +4,22 @@ import pandas as pd
 from engine_api.rule_engine import apply_rules, read_rules_from_csv, create_decision
 from engine_api import app, auth
 import re
+import os
+import glob
 
-rule0 = read_rules_from_csv("rules.csv")
+
+# use glob to get all the csv files
+# in the folder
+path = os.getcwd()
+csv_files = glob.glob(os.path.join(path, "engine_api", "algorithms", "*.csv"))
+print(csv_files)
+rules = {}
+# loop over the list of csv files
+for f in csv_files:
+    df = read_rules_from_csv(f)
+    rules[f.split("/")[-1].split(".")[0]] = df
+
+print(rules)
 # https://blog.miguelgrinberg.com/post/restful-authentication-with-flask
 @auth.verify_password
 def verify_password(username, password):
@@ -25,16 +39,14 @@ def redirection():
 
 
 @app.route("/api/v1/<rule_nr>", methods=["POST"])
+@swag_from("docs/rule0.yml", validation=True)
 @auth.login_required
-# @swag_from("docs/logsearch.yml", validation=True)  # validates data automatically
 def apply_rule0(rule_nr):
-    data = request.json["data"]
-    # print(data)
-    # print(rule0)
-    print(rule_nr)
-    if bool(re.match("rule\d{1,2}", rule_nr)):
+    data = request.json
 
-        decision, decision_path = create_decision(data, eval(rule_nr))
+    if rule_nr in rules.keys():
+
+        decision, decision_path = create_decision(data, rules[rule_nr])
     else:
         return {"message": "Invalid rule number"}
     return jsonify(
