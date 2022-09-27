@@ -1,7 +1,12 @@
 from flasgger import swag_from, validate
 from flask import jsonify, redirect, render_template, request, session
 import pandas as pd
-from engine_api.rule_engine import apply_rules, read_rules_from_csv, create_decision
+from engine_api.rule_engine import (
+    apply_rules,
+    read_rules_from_csv,
+    create_decision,
+    routing,
+)
 from engine_api import app, auth
 import re
 import os
@@ -38,23 +43,21 @@ def redirection():
     return redirect("/apidocs")
 
 
-@app.route("/api/v1/<rule_nr>", methods=["POST"])
+@app.route("/api/v1/rule0", methods=["POST"])
+@swag_from(
+    os.path.join(path, "engine_api", "docs", "rule0.yml"),
+    validation=True,
+)
 @auth.login_required
-def apply_rule0(rule_nr):
-    data = request.json
-    validate(
-        data,
-        "input",
-        os.path.join(path, "engine_api", "docs", rule_nr + ".yml"),
-    )
-    if rule_nr in rules.keys():
+def apply_rule0():
+    return routing(request, rules, "rule0")
 
-        decision, decision_path = create_decision(data, rules[rule_nr])
-    else:
-        return {"message": "Invalid rule number"}
-    return jsonify(
-        {
-            "decision": decision,
-            "decision_path": ",".join([str(x) for x in decision_path]),
-        }
-    )
+
+@app.route("/api/v1/penicillin_intake_ge2h", methods=["POST"])
+@swag_from(
+    os.path.join(path, "engine_api", "docs", "penicillin_intake_ge2h.yml"),
+    validation=True,
+)
+@auth.login_required
+def apply_penicillin_intake_ge2h():
+    return routing(request, rules, "penicillin_intake_ge2h")

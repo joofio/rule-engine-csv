@@ -6,4 +6,4 @@
 4,skin envolvement,eq,Y,6,not final,5,not final
 5,skin envolvement,eq,N,Low risk of penicillin allergy,final,ERROR,final
 6,duration of symptons,eq,Mucosal and/or bullous lesions,High risk of penicillin Allergy,final,7,not final
-7,duration of symptons,gt,48,High risk of penicillin Allergy,final,Low risk of penicillin allergy,final
+7,duration of symptons,eq,>48,High risk of penicillin Allergy,final,Low risk of penicillin allergy,final

@@ -2,13 +2,14 @@
 # coding: utf-8
 
 import pandas as pd
+from flask import jsonify, redirect, render_template, request, session
 
 
 # read_rules
 def read_rules_from_csv(path):
     rules = pd.read_csv(path, index_col=0, quotechar='"')
-    rules["Column"].replace(" ", "_", inplace=True, regex=True)
-    print(rules)
+    # rules["Column"].replace(" ", "_", inplace=True, regex=True)
+    # print(rules)
     return rules.T.to_dict(orient="list")
 
 
@@ -77,3 +78,20 @@ def save_rules_to_csv(rules, path):
         "result_nok_type",
     ]
     dd.to_csv(path)
+
+
+def routing(request, rules, rule_nr):
+
+    data = request.json
+
+    if rule_nr in rules.keys():
+
+        decision, decision_path = create_decision(data, rules[rule_nr])
+    else:
+        return {"message": "Invalid rule number"}, 400
+    return jsonify(
+        {
+            "decision": decision,
+            "decision_path": ",".join([str(x) for x in decision_path]),
+        }
+    )

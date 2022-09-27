@@ -13,6 +13,5 @@ SWAGGER_TEMPLATE = {
         "termsOfService": "http://me.com/terms",
         "version": "0.0.1",
     },
-    # "host": "http://bibliovigilancia.gim.med.up.pt/",  # overrides localhost:5000
     "schemes": ["http", "https"],
 }

@@ -9,7 +9,7 @@
       description: "Conditions"
       required: true
       schema:
-        $ref: "#/definitions/dgsalgorithm"
+        $ref: "#/definitions/penicillin2h"
   responses:
     422:
       description: "Wrong format for parameters"
@@ -22,7 +22,7 @@
         example: "1"
 
   definitions:
-    dgsalgorithm:
+    penicillin2h:
       type: "object"
       required:
         - "reaction"
@@ -45,5 +45,6 @@
           type: "string"
           enum:
             - "Mucosal and/or bullous lesions"
-            - "false"
+            - "<48h"
+            - ">48h"
 
