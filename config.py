@@ -14,6 +14,5 @@ SWAGGER_TEMPLATE = {
         "version": "0.0.1",
     },
     # "host": "http://bibliovigilancia.gim.med.up.pt/",  # overrides localhost:5000
-    "basePath": "api",  # base bash for blueprint registration
     "schemes": ["http", "https"],
 }

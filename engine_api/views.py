@@ -1,4 +1,4 @@
-from flasgger import swag_from
+from flasgger import swag_from, validate
 from flask import jsonify, redirect, render_template, request, session
 import pandas as pd
 from engine_api.rule_engine import apply_rules, read_rules_from_csv, create_decision
@@ -39,11 +39,14 @@ def redirection():
 
 
 @app.route("/api/v1/<rule_nr>", methods=["POST"])
-@swag_from("docs/rule0.yml", validation=True)
 @auth.login_required
 def apply_rule0(rule_nr):
     data = request.json
-
+    validate(
+        data,
+        "input",
+        os.path.join(path, "engine_api", "docs", rule_nr + ".yml"),
+    )
     if rule_nr in rules.keys():
 
         decision, decision_path = create_decision(data, rules[rule_nr])
