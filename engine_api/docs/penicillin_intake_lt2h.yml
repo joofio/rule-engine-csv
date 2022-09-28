@@ -1,4 +1,4 @@
-  description: "endpoint for receiving information of decision tree when Time between symptoms and the first penicillin intake > 2 hr"
+  description: "endpoint for receiving information of decision tree when Time between symptoms and the first penicillin intake < 2 hr"
   consumes:
     - "application/json"
   produces:
@@ -9,7 +9,7 @@
       description: "Parameters"
       required: true
       schema:
-        $ref: "#/definitions/penicillinge2h"
+        $ref: "#/definitions/penicillinlt2h"
   responses:
     422:
       description: "Wrong format for parameters"
@@ -21,7 +21,7 @@
         $ref: '#/definitions/response'
 
   definitions:
-    penicillinge2h:
+    penicillinlt2h:
       type: "object"
       required:
         - "reaction"
@@ -56,4 +56,3 @@
             - "High risk of penicillin Allergy"
         decision_path:
           type: "string"
-     

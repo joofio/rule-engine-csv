@@ -1,4 +1,4 @@
-  description: "endpoint for receiving information of decision tree when Time between symptoms and the first penicillin intake > 2 hr"
+  description: "endpoint for receiving information of decision tree when Time between symptoms and the first intake is not known"
   consumes:
     - "application/json"
   produces:
@@ -9,7 +9,7 @@
       description: "Parameters"
       required: true
       schema:
-        $ref: "#/definitions/penicillinge2h"
+        $ref: "#/definitions/penicillinnotknow"
   responses:
     422:
       description: "Wrong format for parameters"
@@ -21,11 +21,10 @@
         $ref: '#/definitions/response'
 
   definitions:
-    penicillinge2h:
+    penicillinnotknow:
       type: "object"
       required:
         - "reaction"
-        - "skin envolvement"
         - "duration of symptons"
       properties:
         reaction:
@@ -33,19 +32,14 @@
           enum:
             - "No reaction"
             - "Serious"
-            - "Acute hepatitis, hypersensitivity pneumonitis, agranulocytosis or vasculitis"
             - "Not serious"
-        skin envolvement:
-          type: "string"
-          enum:
-            - "Y"
-            - "N"
         duration of symptons:
           type: "string"
           enum:
-            - "Mucosal and/or bullous lesions"
-            - "<48h"
+            - "<24h"
+            - "24-48h"
             - ">48h"
+            - "Not Known"
     response:
       type: "object"
       properties:
@@ -56,4 +50,3 @@
             - "High risk of penicillin Allergy"
         decision_path:
           type: "string"
-     

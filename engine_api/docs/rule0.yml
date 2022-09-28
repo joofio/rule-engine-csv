@@ -9,7 +9,7 @@
       description: "Conditions"
       required: true
       schema:
-        $ref: "#/definitions/dgsalgorithm"
+        $ref: "#/definitions/example"
   responses:
     422:
       description: "Wrong format for parameters"
@@ -18,11 +18,10 @@
     200:
       description: "Sucessful operation"
       schema:
-        type: "string"
-        example: "1"
+        $ref: '#/definitions/response'
 
   definitions:
-    dgsalgorithm:
+    example:
       type: "object"
       required:
         - "sympt_cough"
@@ -50,3 +49,13 @@
           enum:
             - "true"
             - "false"
+    response:
+      type: "object"
+      properties:
+        reaction:
+          type: "string"
+          enum:
+            - "Low risk of penicillin Allergy"
+            - "High risk of penicillin Allergy"
+        decision_path:
+          type: "string"

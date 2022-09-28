@@ -53,7 +53,8 @@ def apply_rule0():
     return routing(request, rules, "rule0")
 
 
-@app.route("/api/v1/penicillin_intake_ge2h", methods=["POST"])
+# only separated because of the different yml file
+@app.route("/api/v1/penicillin/intake_ge2h", methods=["POST"])
 @swag_from(
     os.path.join(path, "engine_api", "docs", "penicillin_intake_ge2h.yml"),
     validation=True,
@@ -61,3 +62,23 @@ def apply_rule0():
 @auth.login_required
 def apply_penicillin_intake_ge2h():
     return routing(request, rules, "penicillin_intake_ge2h")
+
+
+@app.route("/api/v1/penicillin/intake_lt2h", methods=["POST"])
+@swag_from(
+    os.path.join(path, "engine_api", "docs", "penicillin_intake_lt2h.yml"),
+    validation=True,
+)
+@auth.login_required
+def apply_penicillin_intake_lt2h():
+    return routing(request, rules, "penicillin_intake_lt2h")
+
+
+@app.route("/api/v1/penicillin/intake_notknow", methods=["POST"])
+@swag_from(
+    os.path.join(path, "engine_api", "docs", "penicillin_intake_notknow.yml"),
+    validation=True,
+)
+@auth.login_required
+def apply_penicillin_intake_notknow():
+    return routing(request, rules, "penicillin_intake_notknow")
